@@ -1,0 +1,32 @@
+<!--pages/chooseAddress/chooseAddress.wxml-->
+<view class='search-address-container'>
+  <view class='input-address-wrapper' id='input-address-layout'>
+    <image class='address-image' src='../../img/location-icon.png'></image>
+    <input class='input-address gray-text' placeholder='您要在哪儿上报' bindinput='bindAddressInput' value='{{inputAddress}}' placeholder-style='color:#999'></input>
+    <view class='cancel-wrapper' bindtap='deleteInput' wx:if='{{inputAddress}}'>
+      <image class='delete-input' src='../../img/delete.png'></image>
+    </view>
+    <view class='line'></view>
+  </view>
+  <view class='search-layout' style='height:{{searchContentHeight}}'>
+    <!--搜索结果列表-->
+    <scroll-view class='search-scroll' scroll-y='true' wx:if='{{resultList.length != 0}}'>
+      <view class='address-item-wrapper' wx:for='{{resultList}}' wx:for-item='item' wx:key='index'>
+        <view class='address-item' bindtap='itemAddressClick' id='{{index}}'>
+          <view class='item-address'>
+            <image class='item-image' src='../../img/list-address-icon.png'></image>
+            <view class='item-address-layout'>
+              <text class='item-title'>{{item.title}}</text>
+              <text class='item-detail-address'>{{item.address}}</text>
+            </view>
+          </view>
+          <view class='line-item'></view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class='empty-layout' style='height:{{searchContentHeight}}' wx:if='{{resultList.length == 0}}'>
+      <image class='empty-icon' src='../../img/search-empty.png'></image>
+      <text class='empty-text'>暂无结果，换个词试试吧~</text>
+    </view>
+  </view>
+</view>

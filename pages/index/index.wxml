@@ -1,0 +1,66 @@
+<!--index.wxml-->
+<view class="container-layout">
+
+  <!--地图-->
+  <view class='map-wrapper' style='height:{{mapHeight}}'>
+    <map class='map' id='myMap' longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" show-location="true" markers="{{markers}}" bindmarkertap="bindMakertap" bindcontroltap='controlTap' bindregionchange='regionChange' controls='{{controls}}'
+      bindtap='bindMapTap'>
+      <!--顶部提示-->
+      <cover-view class='cover-tip-wrapper' wx:if='{{showTopTip}}' bindtap='showNewMarkerClick'>
+        <cover-image class='tip-bg' src='../../img/tip-bg.png'>
+        </cover-image>
+        <cover-view class='cover-tip-content'>
+          <cover-image class='trumpet-icon' src='../../img/notification.png'>
+          </cover-image>
+          <cover-view class='tip-text'>{{warningText}}</cover-view>
+          <cover-image class='right-arrow' src='../../img/right-arrow.png'></cover-image>
+        </cover-view>
+      </cover-view>
+    </map>
+    <!--定位当前位置-->
+    <cover-view class='cover-layout' bindtap='selfLocationClick'>
+      <cover-image class='self-location' src='../../img/self-location.png'></cover-image>
+    </cover-view>
+    <!--上传信息按钮-->
+    <cover-view wx:if='{{showUpload}}' class='home-btn-layout' style='left:{{homeActionLeftDistance}}' id='home-action-wrapper'>
+      <cover-image class='home-action-btn' src='../../img/home-btn.png' bindtap='uploadInfoClick'>
+      </cover-image>
+    </cover-view>
+  </view>
+
+  <!--底部布局-->
+  <view class='bottom-layout' id='bottom-layout'>
+    <view class='bottom-wrapper'>
+      <view upload-wrapper wx:if='{{showConfirm}}'>
+        <!--点击上传信息-->
+        <form bindsubmit='confirmClick'>
+          <view class='cancel-publish-layout'>
+            <view class='cancel-btn flex-center' bindtap='cancelClick'>取消</view>
+            <button class='confirm-btn flex-center' form-type='submit'>发布</button>
+            <view class='split-blur-bg' style='position:absolute;top:0'></view>
+          </view>
+          <view class='line'></view>
+          <view class='location-wrapper' bindtap='chooseAddress'>
+            <image class='location-icon' src='../../img/location-icon.png'></image>
+            <view class='address-wrapper'>
+              <text class='location-address'>{{selectAddress}}</text>
+            </view>
+          </view>
+
+          <view class='info-wrapper'>
+            <textarea class='info-text' placeholder='您想对其他人说些什么？' name='message' placeholder-style='color:#CCCCCC'></textarea>
+          </view>
+          <view class='upload-image-root'>
+            <view class='upload-image-wrapper'>
+              <image class='default-image' src='../../img/default-camera-image.png' bindtap='takePhoto' wx:if='{{!uploadImagePath}}'></image>
+              <image class='default-image' src='{{uploadImagePath}}' bindtap='previewSelectImage' wx:if='{{uploadImagePath}}' mode='aspectFill'></image>
+              <!--删除图片的图标-->
+              <image class='delete-image-icon' src='../../img/delete-icon.png' wx:if='{{uploadImagePath}}' bindtap='deleteSelectImage'></image>
+            </view>
+          </view>
+        </form>
+      </view>
+
+    </view>
+  </view>
+</view>
